@@ -1,10 +1,15 @@
 from collections import namedtuple
 from dataclasses import dataclass
-from sqlalchemy import create_engine
+from typing import List
+
+
 import sqlalchemy
+from sqlalchemy import create_engine
 
-from typing import Optional, List
+from src import logger_util
 
+
+logger = logger_util(__name__)
 
 @dataclass
 class Engine:
@@ -19,6 +24,10 @@ class Engine:
             f"postgresql://{self.sql_user}:{self.sql_password}@{self.sql_host}:{self.sql_port}/defaultdb"
         )
 
+        #should add a check to check for engine connectivity 
+        #and raise an exception if not connected
+        logger.info(f"Connected to database: {engine.url}")
+
         object.__setattr__(self, "engine", engine)
 
 
@@ -28,6 +37,8 @@ class Lead(Engine):
         super().__post_init__()
 
     lead_id: int = 0
+
+    logger.info(f'Using  {lead_id} as the last lead_id')
 
     lead = namedtuple(
         "lead",
@@ -63,12 +74,16 @@ class Lead(Engine):
 
     def return_leads(self, lead_id: int) -> List[namedtuple]:
         leads = self.fetch_leads(lead_id)
+        logger.info(f'Found {len(leads)} leads')
         #-1 = last record, 0 = lead_id.
         self.store_lead_id(leads[-1][0])
+        
         return self.parse_leads(leads)
 
     #locally store the last lead_id
     def store_lead_id(self, lead_id: int) -> None:
+
+        logger.info(f'Storing {lead_id} as the max lead_id')
         
         with open('last_lead_id.csv', 'w') as f:
             f.write(str(lead_id))
