@@ -7,9 +7,11 @@ name = "pypi"
 slack-sdk = "*"
 sqlalchemy = "*"
 psycopg2-binary = "*"
+pipfile = "*"
 
 [dev-packages]
 black = "*"
+ipython = "*"
 
 [requires]
 python_version = "3.8"
