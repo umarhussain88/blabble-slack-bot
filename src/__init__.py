@@ -35,3 +35,5 @@ def logger_util(name : str) -> logging.Logger:
     eh.setLevel(logging.ERROR)
     eh.setFormatter(formatter)
     logger.addHandler(eh)
+
+    return logger

@@ -20,6 +20,7 @@ lead = blabble.Lead(
 
 with open('last_lead_id.csv', 'r') as f:
     last_lead_id = int(f.read())
+    logger.info(f'Using  {last_lead_id} as the last lead_id from last_lead_id.csv')
 
 lead_results = lead.return_leads(last_lead_id)
 
