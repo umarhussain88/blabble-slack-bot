@@ -1,7 +1,7 @@
 from collections import namedtuple
 from dataclasses import dataclass
 from typing import List
-
+import sys
 
 import sqlalchemy
 from sqlalchemy import create_engine
@@ -74,6 +74,12 @@ class Lead(Engine):
 
     def return_leads(self, lead_id: int) -> List[namedtuple]:
         leads = self.fetch_leads(lead_id)
+        
+        if not leads:
+            logger.info(f'No leads found exiting')
+            sys.exit(0)
+            
+
         logger.info(f'Found {len(leads)} leads')
         #-1 = last record, 0 = lead_id.
         self.store_lead_id(leads[-1][0])
