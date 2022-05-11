@@ -33,5 +33,5 @@ for result in lead_results:
     logger.info(f'Sending message to slack channel for lead_id: {result.lead_id}')
     sleep(1)
     client.chat_postMessage(channel='#mortgage-leads', 
-            text = f""" New Lead:* #{result.lead_id} - {result.name}* *Property Value: {property_value}* *Loan Amount: {mortgage_amount}*  \n\nMessage: {result.message}\n<https://docs.google.com/forms/d/e/1FAIpQLSc6Xp_l9rfTA_OhW9wlHcjWMXyuGejOVoSJQeoo8eLuQqn2kA/viewform|Purchase Lead Here>
+            text = f""" New Lead:* #{result.lead_id} - {result.name}*\n*Property Value: {property_value}* *Loan Amount: {mortgage_amount}*  \n\nMessage: {result.message}\n<https://docs.google.com/forms/d/e/1FAIpQLSc6Xp_l9rfTA_OhW9wlHcjWMXyuGejOVoSJQeoo8eLuQqn2kA/viewform|Purchase Lead Here>
                             """)
