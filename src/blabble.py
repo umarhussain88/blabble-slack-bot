@@ -62,7 +62,7 @@ class Lead(Engine):
                       LEFT JOIN users_customer cust
                         ON lead.customer_id = cust.id
                     WHERE
-                      lead.id > 1296
+                      lead.id > {lead_id}
                     AND lead.created >= '2022-04-04'
                     AND cust.email NOT LIKE '%%test%%'
                     AND lead.message NOT LIKE '%%test%%'
