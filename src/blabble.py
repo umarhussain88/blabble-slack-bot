@@ -53,11 +53,11 @@ class Lead(Engine):
                     SELECT lead.id
                          , CAST(COALESCE(NULLIF(lead.property_amount,''), '0') AS DECIMAL) AS "Property Value"
                          , CAST(COALESCE(NULLIF(lead.mortgage_amount,''), '0') AS DECIMAL) AS "Loan Amount"
-                         , lead.created                                         AS "form submit date"
+                         , lead.created                                                    AS "form submit date"
                          , COALESCE(lead.message, '')
-                         , COALESCE(cust.email, '')                             AS email
-                         , CONCAT(cust.first_name, '', cust.last_name)          AS "Name"
-                         , mobile_phone                                         AS "Phone"
+                         , COALESCE(cust.email, '')                                        AS email
+                         , CONCAT(cust.first_name, ' ', cust.last_name)                    AS "Name"
+                         , mobile_phone                                                    AS "Phone"
                     FROM leads_lead            lead
                       LEFT JOIN users_customer cust
                         ON lead.customer_id = cust.id
