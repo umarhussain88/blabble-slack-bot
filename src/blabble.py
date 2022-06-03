@@ -51,8 +51,8 @@ class Lead(Engine):
 
         sql_str = f"""
                     SELECT lead.id
-                         , CAST(COALESCE(NULLIF(lead.property_amount,''), '0') AS DECIMAL) AS "Property Value"
-                         , CAST(COALESCE(NULLIF(lead.mortgage_amount,''), '0') AS DECIMAL) AS "Loan Amount"
+                         , CAST(COALESCE(NULLIF(REGEXP_REPLACE(lead.property_amount, '£|\,|\D+', '', 'g'), ''), '0') AS DECIMAL) AS "Property Value"
+                         , CAST(COALESCE(NULLIF(REGEXP_REPLACE(lead.mortgage_amount, '£|\,|\D+', '', 'g'), ''), '0') AS DECIMAL) AS "Loan Amount"
                          , lead.created                                                    AS "form submit date"
                          , COALESCE(lead.message, '')
                          , COALESCE(cust.email, '')                                        AS email
